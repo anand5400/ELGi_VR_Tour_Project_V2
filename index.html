@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <title>ELGi VR Experience Hub</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+  <div class="app">
+
+    <!-- HEADER -->
+    <header class="app-header">
+      <div>
+        <h1>ACP Virtual Reality Tour</h1>
+        <p class="subtitle">Select a module to enter the ELGi virtual environment.</p>
+      </div>
+    </header>
+
+
+    <!-- MAIN LAYOUT -->
+    <main class="main-layout">
+
+      <!-- MODULE CARDS -->
+      <section class="scene-grid" aria-label="VR modules">
+
+        <!-- MODULE 1 (ENABLED) -->
+        <article class="scene-card" data-scene="module1" data-enabled="true" tabindex="0"
+          aria-label="Module 1 – 360° tour using Insta360 images">
+          <h2>Module 1</h2>
+          <p>360° tour using Insta360 images inside the ELGi VR environment.</p>
+
+          <div class="card-actions">
+            <button type="button" class="scene-launch-btn scene-btn" data-scene="module1" data-type="launch">
+              Start Experience
+            </button>
+            <button type="button" class="scene-preview-btn scene-btn" data-scene="module1" data-type="preview">
+              Preview 360° Image
+            </button>
+          </div>
+        </article>
+
+        <!-- MODULE 2 (DISABLED) -->
+        <article class="scene-card disabled" data-scene="module2" data-enabled="false" tabindex="-1"
+          aria-label="Module 2 (coming soon)">
+          <h2>Module 2</h2>
+          <p>Coming soon.</p>
+          <div class="card-actions">
+            <button type="button" class="scene-launch-btn" disabled>
+              Coming Soon
+            </button>
+          </div>
+        </article>
+
+        <!-- MODULE 3 (DISABLED) -->
+        <article class="scene-card disabled" data-scene="module3" data-enabled="false" tabindex="-1"
+          aria-label="Module 3 (coming soon)">
+          <h2>Module 3</h2>
+          <p>Coming soon.</p>
+          <div class="card-actions">
+            <button type="button" class="scene-launch-btn" disabled>
+              Coming Soon
+            </button>
+          </div>
+        </article>
+
+        <!-- MODULE 4 (DISABLED) -->
+        <article class="scene-card disabled" data-scene="module4" data-enabled="false" tabindex="-1"
+          aria-label="Module 4 (coming soon)">
+          <h2>Module 4</h2>
+          <p>Coming soon.</p>
+          <div class="card-actions">
+            <button type="button" class="scene-launch-btn" disabled>
+              Coming Soon
+            </button>
+          </div>
+        </article>
+
+        <!-- MODULE 5 (DISABLED) -->
+        <article class="scene-card disabled" data-scene="module5" data-enabled="false" tabindex="-1"
+          aria-label="Module 5 (coming soon)">
+          <h2>Module 5</h2>
+          <p>Coming soon.</p>
+          <div class="card-actions">
+            <button type="button" class="scene-launch-btn" disabled>
+              Coming Soon
+            </button>
+          </div>
+        </article>
+
+        <!-- MODULE 6 (DISABLED) -->
+        <article class="scene-card disabled" data-scene="module6" data-enabled="false" tabindex="-1"
+          aria-label="Module 6 (coming soon)">
+          <h2>Module 6</h2>
+          <p>Coming soon.</p>
+          <div class="card-actions">
+            <button type="button" class="scene-launch-btn" disabled>
+              Coming Soon
+            </button>
+          </div>
+        </article>
+
+      </section>
+
+    </main>
+
+  </div>
+
+  <script src="script.js"></script>
+</body>
+
+</html>

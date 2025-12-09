@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>360 Street View Tour</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <script src="https://aframe.io/releases/1.5.0/aframe.min.js"></script>
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      background: #000;
+    }
+    a-scene {
+      width: 100vw;
+      height: 100vh;
+    }
+  </style>
+</head>
+<body>
+  <a-scene webxr="referenceSpaceType: local-floor"
+           vr-mode-ui="enabled: true"
+           cursor="rayOrigin: mouse"
+           raycaster="objects: .clickable">
+
+    <a-assets>
+      <!-- Panos -->
+      <img id="pano1" src="assate/img1.jpg">
+      <img id="pano2" src="assate/img2.jpg">
+      <img id="pano3" src="assate/img3.jpg">
+      <img id="pano4" src="assate/img4.jpg">
+      <img id="pano5" src="assate/img5.jpg">
+      <img id="pano6" src="assate/img6.jpg">
+      <img id="pano7" src="assate/img7.jpg">
+      <img id="pano8" src="assate/img8.jpg">
+      <img id="pano9" src="assate/img9.jpg">
+      <img id="pano10" src="assate/img10.jpg">
+      <img id="pano11" src="assate/img11.jpg">
+  <img id="pano12" src="assate/img12.jpg">
+  <img id="pano13" src="assate/img13.jpg">
+  <img id="pano14" src="assate/img14.jpg">
+  <img id="pano15" src="assate/img15.1.jpg">
+  <img id="pano16" src="assate/img16.jpg">
+  <img id="pano016" src="assate/img16 (2).jpg">
+  <img id="pano17" src="assate/img17.jpg">
+  <img id="pano18" src="assate/img18.jpg">
+  <img id="pano19" src="assate/img19.jpg">
+  <img id="pano20" src="assate/img20.jpg">
+  <img id="pano21" src="assate/img21.jpg">
+  <img id="pano22" src="assate/img22.jpg">
+  <img id="pano23" src="assate/img23.jpg">
+  <img id="pano24" src="assate/img24.jpg">
+  <img id="pano25" src="assate/img25.jpg">
+  <img id="pano26" src="assate/img26.jpg">
+  <img id="pano27" src="assate/img27.jpg">
+  <img id="pano28" src="assate/img28.jpg">
+  <img id="pano29" src="assate/img29.jpg">
+  <img id="pano30" src="assate/img30.jpg">
+  <img id="pano31" src="assate/img31.jpg">
+  <img id="pano32" src="assate/img32.jpg">
+  <img id="pano33" src="assate/img33.jpg">
+  <img id="pano34" src="assate/img34.jpg">
+  <img id="pano35" src="assate/img35.jpg">
+  <img id="pano36" src="assate/img36.jpg">
+  <img id="pano37" src="assate/img37.jpg">
+  <img id="pano38" src="assate/img38.jpg">
+  <img id="pano39" src="assate/img39.jpg">
+  <img id="pano40" src="assate/img40.jpg">
+  <img id="pano41" src="assate/img41.jpg">
+  <img id="pano42" src="assate/img42.jpg">
+  <img id="pano43" src="assate/img43.jpg">
+
+      <!-- Location Icon -->
+      <img id="locIcon" src="assate/location.png">
+    </a-assets>
+
+    <!-- SKY -->
+    <a-sky id="sky"
+           src="#pano1"
+           rotation="0 90 0"
+           material="shader: flat;">
+    </a-sky>
+
+    <!-- Camera rig -->
+    <a-entity id="rig" position="0 0 0">
+      <a-entity camera look-controls></a-entity>
+    </a-entity>
+
+    <!-- Hotspot container -->
+    <a-entity id="hotspots"></a-entity>
+  </a-scene>
+
+  <script>
+    const scene = document.querySelector("a-scene");
+    const sky = document.querySelector("#sky");
+    const hotspotsContainer = document.querySelector("#hotspots");
+    let canvas = null;
+
+    // scene canvas for cursor change
+    scene.addEventListener("loaded", () => {
+      canvas = scene.canvas;
+    });
+
+    let currentNodeId = "point1";
+    let extraYaw = 0;
+
+    // All config in one object: pano + base yaw + hotspots
+    const nodes = {
+      point1: {
+        skyId: "#pano1",
+        yaw: 90,
+        hotspots: [
+          { id: "hs1", position: "-10 -1 -2",   rotation: "0 -90 0", scale: "1.5 1.5 1.5", target: "point2" },
+          { id: "hs2", position: "20 -1 0",     rotation: "0 90 0",  scale: "1.5 1.5 1.5", target: "point3" },
+          { id: "hs3", position: "20 -1 -20",   rotation: "0 0 0",   scale: "3 3 3",       target: "point4" }
+        ]
+      },
+      point2: {
+        skyId: "#pano2",
+        yaw: 85,
+        hotspots: [
+          { id: "hs4", position: "0 -0.5 -5",   rotation: "0 180 0", scale: "0.6 0.6 0.6", target: "point1" }
+        ]
+      },
+      point3: {
+        skyId: "#pano3",
+        yaw: -25,
+        hotspots: [
+          { id: "hs5", position: "-10 -1 -25",  rotation: "0 180 0", scale: "2.5 2.5 2.5", target: "point1" }
+        ]
+      },
+      point4: {
+        skyId: "#pano4",
+        yaw: -90,
+        hotspots: [
+          { id: "hs6", position: "-3 -1 6",     rotation: "0 180 0", scale: "0.9 0.9 0.9", target: "point1" },
+          { id: "hs7", position: "0.8 -0.9 -30",rotation: "0 0 0",   scale: "2.5 2.5 2.5", target: "point5" }
+        ]
+      },
+      point5: {
+        skyId: "#pano5",
+        yaw: -90,
+        hotspots: [
+          { id: "hs8", position: "-0.8 -0.9 8", rotation: "0 180 0", scale: "0.8 0.8 0.8", target: "point4" },
+          { id: "hs9", position: "0.8 -0.9 -20",rotation: "0 0 0",   scale: "2.5 2.5 2.5", target: "point6" }
+        ]
+      },
+      point6: {
+        skyId: "#pano6",
+        yaw: -90,
+        hotspots: [
+          { id: "hs10", position: "0.8 -0.9 8", rotation: "0 180 0", scale: "0.8 0.8 0.8", target: "point5" },
+          { id: "hs11", position: "1 -1 -25",   rotation: "0 0 0",   scale: "2.5 2.5 2.5", target: "point7" }
+        ]
+      },
+      point7: {
+        skyId: "#pano7",
+        yaw: 90,
+        hotspots: [
+          { id: "hs12", position: "0 -1 8",     rotation: "0 180 0", scale: "1 1 1",       target: "point6" },
+          { id: "hs13", position: "0 -1 -20",   rotation: "0 0 0",   scale: "2.5 2.5 2.5", target: "point8" }
+        ]
+      },
+      point8: {
+        skyId: "#pano8",
+        yaw: -90,
+        hotspots: [
+          { id: "hs14", position: "0 -1 8",     rotation: "0 180 0", scale: "1 1 1",       target: "point7" },
+          { id: "hs15", position: "0 -1 -20",   rotation: "0 0 0",   scale: "2.5 2.5 2.5", target: "point9" }
+        ]
+      },
+      point9: {
+        skyId: "#pano9",
+        yaw: -205,
+        hotspots: [
+          { id: "hs16", position: "0 -1 15",    rotation: "0 180 0", scale: "1 1 1",       target: "point8" },
+          { id: "hs17", position: "0 -2 -20",   rotation: "0 0 0",   scale: "1.5 1.5 1.5", target: "point10" }
+        ]
+      },
+      point10: {
+        skyId: "#pano10",
+        yaw: -90,
+        hotspots: [
+          { id: "hs18", position: "0 -1 10",     rotation: "0 180 0", scale: "1 1 1",       target: "point9" },
+          { id: "hs19", position: "0 -2 -10",     rotation: "0 180 0", scale: "1 1 1",       target: "point11" }
+        ]
+      },
+      point11: {
+        skyId: "#pano11",
+        yaw: 90,
+        hotspots: [
+          { id: "hs20", position: "0 -1 10",     rotation: "0 180 0", scale: "1 1 1",       target: "point10" },
+          { id: "hs21", position: "0 -2 -10",     rotation: "0 180 0", scale: "1 1 1",       target: "point12" }
+        ]
+      },
+      point12: {
+        skyId: "#pano12",
+        yaw: -90,
+        hotspots: [
+          { id: "hs22", position: "0 -1 10",     rotation: "0 180 0", scale: "1 1 1",       target: "point11" },
+          { id: "hs23", position: "-12 -2 -10",     rotation: "0 180 0", scale: "1 1 1",       target: "point13" }
+        ]
+      },
+      point13: {
+        skyId: "#pano13",
+        yaw: 90,
+        hotspots: [
+          { id: "hs24", position: "4 -1 10",     rotation: "0 180 0", scale: "1 1 1",       target: "point12" },
+          { id: "hs25", position: "6 -2 -10",     rotation: "0 180 0", scale: "1 1 1",       target: "point14" }
+        ]
+      },
+      point14: {
+        skyId: "#pano14",
+        yaw: -90,
+        hotspots: [
+          { id: "hs26", position: "4 -1 10",     rotation: "0 180 0", scale: "1 1 1",       target: "point13" },
+          { id: "hs27", position: "0 -2 -10",     rotation: "0 180 0", scale: "1 1 1",       target: "point15" }
+        ]
+      },
+      point15: {
+        skyId: "#pano15",
+        yaw: 150,
+        hotspots: [
+          { id: "hs28", position: "4 -1 10",     rotation: "0 180 0", scale: "1 1 1",       target: "point14" },
+          { id: "hs29", position: "-4 -2 -10",     rotation: "0 180 0", scale: "1 1 1",       target: "point16" }
+        ]
+      },
+      point16: {
+        skyId: "#pano16",
+        yaw: 165,
+        hotspots: [
+          { id: "hs30", position: "4 -1 10",     rotation: "0 180 0", scale: "1 1 1",       target: "point15" },
+          { id: "hs31", position: "-4 -2 -10",     rotation: "0 180 0", scale: "1 1 1",       target: "point016" }
+        ]
+      },
+      point016: {
+        skyId: "#pano016",
+        yaw: -5,
+        hotspots: [
+          { id: "hs32", position: "-6 -2 6",     rotation: "0 180 0", scale: "1 1 1",       target: "point16" },
+          { id: "hs33", position: "22 -1 -5",     rotation: "0 100 0", scale: "1.5 1.5 1.5",       target: "point17" }
+        ]
+      },
+      point17: {
+        skyId: "#pano17",
+        yaw: 90,
+        hotspots: [
+          { id: "hs34", position: "0 -1 10",     rotation: "0 180 0", scale: "1 1 1",       target: "point016" },
+          { id: "hs35", position: "0 -2 -10",     rotation: "0 180 0", scale: "1 1 1",       target: "point19" }
+        ]
+      },
+      point19: {
+        skyId: "#pano19",
+        yaw: 90,
+        hotspots: [
+          { id: "hs36", position: "0 -1 10",     rotation: "0 180 0", scale: "1 1 1",       target: "point17" },
+          { id: "hs37", position: "0 -2 -10",     rotation: "0 180 0", scale: "1 1 1",       target: "point20" }
+        ]
+      },
+      
+      
+    };
+
+    function updateSkyRotation() {
+      const node = nodes[currentNodeId];
+      const base = node ? node.yaw : 0;
+      sky.setAttribute("rotation", `0 ${-(base + extraYaw)} 0`);
+    }
+
+    function buildHotspots(nodeId) {
+      hotspotsContainer.innerHTML = "";
+      const node = nodes[nodeId];
+      if (!node || !node.hotspots) return;
+
+      node.hotspots.forEach(conf => {
+        const el = document.createElement("a-image");
+        el.setAttribute("id", conf.id);
+        el.setAttribute("src", "#locIcon");
+        el.setAttribute("position", conf.position);
+        el.setAttribute("rotation", conf.rotation);
+        el.setAttribute("scale", conf.scale);
+        el.setAttribute("class", "clickable");
+        el.setAttribute("material", "shader: flat; transparent: true; alphaTest: 0.01;");
+
+        // Hover: only cursor change
+        el.addEventListener("mouseenter", () => {
+          if (canvas) canvas.style.cursor = "pointer";
+        });
+        el.addEventListener("mouseleave", () => {
+          if (canvas) canvas.style.cursor = "default";
+        });
+
+        // Click: move to target node
+        el.addEventListener("click", () => loadNode(conf.target));
+
+        hotspotsContainer.appendChild(el);
+      });
+    }
+
+    function loadNode(nodeId) {
+      const node = nodes[nodeId];
+      if (!node) return;
+
+      currentNodeId = nodeId;
+      sky.setAttribute("src", node.skyId);
+      extraYaw = 0;
+      updateSkyRotation();
+      buildHotspots(nodeId);
+    }
+
+    // Init
+    loadNode(currentNodeId);
+  </script>
+</body>
+</html>

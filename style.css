@@ -1,0 +1,247 @@
+/* THEME VARIABLES — SINGLE DARK THEME */
+:root {
+  --red-main: #e4002b;
+  --red-dark: #b30021;
+
+  --radius-lg: 18px;
+  --radius-pill: 999px;
+  --shadow-soft: 0 22px 40px rgba(0, 0, 0, 0.7);
+
+  --bg-main: #0b0b0d;
+  --bg-card: #18181f;
+  --text-main: #ffffff;
+  --text-muted: #a1a1b2;
+  --border-color: rgba(255, 255, 255, 0.1);
+
+  --button-bg: rgb(255, 5, 51);
+  --button-bg-hover: rgba(255, 0, 0, 0.381);
+}
+
+/* GLOBAL RESET */
+html,
+body {
+  height: 100%;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: system-ui, sans-serif;
+  background: var(--bg-main);
+  color: var(--text-main);
+}
+
+/* APP WRAPPER */
+.app {
+  max-width: 1120px;
+  margin: 0 auto;
+  min-height: 100vh;
+  padding: 24px 16px 24px;
+  display: flex;
+  flex-direction: column;
+}
+
+/* HEADER */
+.app-header {
+  display: flex;
+  flex-direction: column;      /* center stack */
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 10px;
+  gap: 30px;
+  text-align: center;
+}
+
+.app-header h1 {
+  margin: 0 0 10px;
+  font-size: 1.9rem;
+}
+
+.subtitle {
+  margin: 0;
+  font-size: 0.95rem;
+  color: var(--text-muted);
+}
+
+.header-right {
+  display: flex;
+  align-items: center;
+  justify-content: center;     /* chip centered too */
+  gap: 8px;
+}
+
+.status-chip {
+  padding: 6px 12px;
+  border-radius: var(--radius-pill);
+  font-size: 0.8rem;
+  border: 1px solid rgba(74, 222, 128, 0.5);
+  color: #bbf7d0;
+  background: rgba(21, 128, 61, 0.16);
+  white-space: nowrap;
+}
+
+/* MAIN LAYOUT — CENTER CONTENT */
+.main-layout {
+  flex: 1;
+  display: flex;
+  justify-content: center;   /* horizontal center */
+  align-items: center;       /* vertical center */
+  padding-top: 20px;
+}
+
+/* SCENE GRID — CENTERED GRID */
+.scene-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 360px);
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+}
+
+/* MODULE CARD */
+.scene-card {
+  background: var(--bg-card);
+  border-radius: var(--radius-lg);
+  padding: 14px;
+  border: 1px solid var(--border-color);
+  box-shadow: var(--shadow-soft);
+  cursor: pointer;
+  transition: 0.16s ease;
+}
+
+.scene-card h2 {
+  margin: 4px 0 6px;
+  font-size: 1rem;
+  color: var(--text-main);
+}
+
+.scene-card p {
+  margin: 0;
+  font-size: 0.86rem;
+  color: var(--text-muted);
+}
+
+.scene-card:hover {
+  transform: translateY(-4px);
+  border-color: var(--red-main);
+  box-shadow: 0 24px 52px rgba(228, 0, 43, 0.35);
+}
+
+/* Selected */
+.scene-card.selected {
+  border-color: rgba(228, 0, 43, 0.95);
+  box-shadow: 0 26px 70px rgba(228, 0, 43, 0.5);
+}
+
+/* Disabled */
+.scene-card.disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+  box-shadow: none;
+}
+
+.scene-card.disabled:hover {
+  transform: none;
+  border-color: var(--border-color);
+}
+
+/* CARD BUTTONS */
+.card-actions {
+  display: flex;
+  gap: 8px;
+  margin-top: 10px;
+}
+
+.scene-launch-btn,
+.scene-preview-btn {
+  flex: 1;
+  width: auto;
+}
+
+/* Launch button */
+.scene-launch-btn {
+  border: none;
+  padding: 9px 0;
+  border-radius: var(--radius-pill);
+  background: var(--button-bg);
+  color: #fff1f3;
+  cursor: pointer;
+  font-size: 0.86rem;
+  transition: 0.16s ease;
+}
+
+.scene-launch-btn:hover {
+  background: var(--button-bg-hover);
+  transform: translateY(-1px);
+}
+
+/* Preview button */
+.scene-preview-btn {
+  background: transparent;
+  border-radius: var(--radius-pill);
+  border: 1px solid var(--border-color);
+  padding: 9px 0;
+  color: var(--text-main);
+  cursor: pointer;
+  font-size: 0.86rem;
+}
+
+.scene-preview-btn:hover {
+  background: var(--button-bg);
+}
+
+.scene-card.disabled .scene-launch-btn,
+.scene-card.disabled .scene-preview-btn {
+  background: rgba(255, 255, 255, 0.06);
+  border-color: rgba(255, 255, 255, 0.06);
+  color: var(--text-muted);
+  cursor: not-allowed;
+}
+
+/* Focus */
+.scene-card:focus-visible {
+  outline: 2px solid rgba(255, 255, 255, 0.85);
+  outline-offset: 3px;
+}
+
+/* RESPONSIVE */
+@media (max-width: 900px) {
+  .scene-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (max-width: 640px) {
+  .app {
+    padding: 16px 10px 18px;
+  }
+
+  .app-header {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .app-header h1 {
+    font-size: 1.6rem;
+  }
+
+  .status-chip {
+    width: 100%;
+    text-align: center;
+  }
+
+  .scene-grid {
+    grid-template-columns: 1fr;
+    gap: 14px;
+  }
+
+  .card-actions {
+    flex-direction: column;
+  }
+}

@@ -1,0 +1,9 @@
+{
+    "liveServer.settings.port": 5501,
+    "liveServer.settings.https": {
+        "enable": true,
+        "cert": "E:/ELGi VR Tour - Copy - Copy/cert.pem",
+        "key": "E:/ELGi VR Tour - Copy - Copy/key.pem",
+        "passphrase": ""
+    }
+}

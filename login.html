@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>ACP VR Tour – Login</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <style>
+        :root {
+            --red-main: #e4002b;
+            --red-dark: #b30021;
+            --bg-main: #050507;
+            --card-bg: #18181f;
+            --text-main: #ffffff;
+            --text-muted: #a1a1b2;
+            --radius-lg: 22px;
+            --radius-pill: 999px;
+            --shadow-soft: 0 28px 60px rgba(0, 0, 0, 0.8);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html,
+        body {
+            height: 100%;
+            font-family: system-ui, sans-serif;
+            background: radial-gradient(circle at top, #232334, #050507);
+            color: var(--text-main);
+        }
+
+        .page {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .card {
+            width: 100%;
+            max-width: 420px;
+            background: radial-gradient(circle at top, #26263a, #14141d);
+            border-radius: var(--radius-lg);
+            padding: 32px 24px 28px;
+            text-align: center;
+            box-shadow: var(--shadow-soft);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .logo-pill {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 6px 14px;
+            border-radius: var(--radius-pill);
+            background: rgba(255, 255, 255, 0.06);
+            font-size: 0.82rem;
+            color: var(--text-muted);
+            margin-bottom: 14px;
+            letter-spacing: 0.5px;
+        }
+
+        .logo-pill span {
+            font-weight: 600;
+            color: var(--text-main);
+            margin-right: 5px;
+        }
+
+        h1 {
+            margin-bottom: 8px;
+            font-size: 1.7rem;
+            font-weight: 600;
+        }
+
+        .subtitle {
+            margin-bottom: 22px;
+            font-size: 0.96rem;
+            color: var(--text-muted);
+            line-height: 1.4;
+        }
+
+        .button {
+            margin-top: 10px;
+            width: 100%;
+            border-radius: var(--radius-pill);
+            border: none;
+            padding: 13px 0;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            background: linear-gradient(135deg, var(--red-main), var(--red-dark));
+            color: #ffffff;
+            box-shadow: 0 20px 38px rgba(228, 0, 43, 0.55);
+            transition: 0.15s ease;
+        }
+
+        .button:hover {
+            transform: translateY(-1px);
+            filter: brightness(1.05);
+        }
+
+        .button:active {
+            transform: translateY(0);
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.7);
+        }
+
+        .footer-text {
+            margin-top: 20px;
+            font-size: 0.82rem;
+            color: var(--text-muted);
+        }
+
+        .footer-text span {
+            color: #ffffff;
+            font-weight: 500;
+        }
+
+        @media (max-width: 480px) {
+            .card {
+                padding: 26px 18px 22px;
+            }
+
+            h1 {
+                font-size: 1.5rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="page">
+        <div class="card">
+
+            <h1>Welcome to ACP VR Tour</h1>
+            <p class="subtitle">
+                Get ready to explore our interactive VR experience.
+            </p>
+
+            <button class="button" id="enterBtn">
+                Enter VR Dashboard
+            </button>
+
+            <p class="footer-text">
+                Powered by <span>ELGi’s Digital Team</span>
+            </p>
+
+        </div>
+    </div>
+
+    <script>
+        document.getElementById("enterBtn").addEventListener("click", () => {
+            window.location.href = "index.html";
+        });
+
+        // THEME TOGGLER
+        const toggleBtn = document.getElementById("themeToggle");
+
+        // Load saved theme
+        let savedTheme = localStorage.getItem("theme") || "dark";
+        document.documentElement.classList.toggle("light", savedTheme === "light");
+
+        // Update icon
+        toggleBtn.textContent = savedTheme === "light" ? "🌞" : "🌙";
+
+        toggleBtn.addEventListener("click", () => {
+            const isLight = document.documentElement.classList.toggle("light");
+
+            localStorage.setItem("theme", isLight ? "light" : "dark");
+            toggleBtn.textContent = isLight ? "🌞" : "🌙";
+        });
+
+    </script>
+</body>
+
+</html>
